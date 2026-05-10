@@ -1,0 +1,125 @@
+.yt-comment-pip-shell {
+  background: #000;
+  border-radius: 8px;
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.35);
+  box-sizing: border-box;
+  display: grid;
+  grid-template-rows: var(--yt-comment-pip-handle-height) var(--yt-comment-pip-video-height);
+  height: calc(var(--yt-comment-pip-handle-height) + var(--yt-comment-pip-video-height));
+  left: var(--yt-comment-pip-left);
+  overflow: hidden;
+  position: fixed;
+  top: var(--yt-comment-pip-top);
+  width: var(--yt-comment-pip-width);
+  will-change: left, top, width, height;
+  z-index: 2147483647;
+}
+
+.yt-comment-pip-handle {
+  align-items: center;
+  background: rgba(20, 20, 20, 0.92);
+  border: 0;
+  cursor: grab;
+  display: flex;
+  height: var(--yt-comment-pip-handle-height);
+  justify-content: center;
+  padding: 0;
+  touch-action: none;
+  width: 100%;
+}
+
+.yt-comment-pip-handle::before {
+  background: rgba(255, 255, 255, 0.82);
+  border-radius: 999px;
+  box-shadow: -10px 0 rgba(255, 255, 255, 0.82), 10px 0 rgba(255, 255, 255, 0.82);
+  content: "";
+  height: 4px;
+  width: 4px;
+}
+
+.yt-comment-pip-handle:active {
+  cursor: grabbing;
+}
+
+.yt-comment-pip-resize {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  cursor: nesw-resize;
+  display: flex;
+  height: var(--yt-comment-pip-handle-height);
+  justify-content: center;
+  padding: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  touch-action: none;
+  width: 36px;
+  z-index: 1;
+}
+
+.yt-comment-pip-resize::before {
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8 3H3v5M16 21h5v-5M3.8 3.8l6.4 6.4M20.2 20.2l-6.4-6.4' fill='none' stroke='rgba(255,255,255,0.9)' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 17px 17px no-repeat;
+  content: "";
+  height: 24px;
+  position: absolute;
+  transform: scaleX(-1);
+  width: 24px;
+}
+
+.yt-comment-pip-stage {
+  background: #000;
+  height: var(--yt-comment-pip-video-height);
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.yt-comment-pip-stage .yt-comment-pip-player {
+  display: block !important;
+  height: 100% !important;
+  max-height: none !important;
+  max-width: none !important;
+  min-height: 0 !important;
+  min-width: 0 !important;
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+}
+
+.yt-comment-pip-stage .yt-comment-pip-player ytd-player,
+.yt-comment-pip-stage .yt-comment-pip-player #movie_player,
+.yt-comment-pip-stage .yt-comment-pip-player .html5-video-player,
+.yt-comment-pip-stage .yt-comment-pip-player .html5-video-container,
+.yt-comment-pip-stage .yt-comment-pip-player .video-stream,
+.yt-comment-pip-stage .yt-comment-pip-player .html5-main-video {
+  height: 100% !important;
+  max-height: 100% !important;
+  max-width: 100% !important;
+  min-height: 0 !important;
+  min-width: 0 !important;
+  width: 100% !important;
+}
+
+.yt-comment-pip-stage .yt-comment-pip-player #movie_player,
+.yt-comment-pip-stage .yt-comment-pip-player .html5-video-player,
+.yt-comment-pip-stage .yt-comment-pip-player .html5-video-container,
+.yt-comment-pip-stage .yt-comment-pip-player .html5-main-video {
+  inset: 0 !important;
+  left: 0 !important;
+  position: absolute !important;
+  top: 0 !important;
+  transform: none !important;
+}
+
+.yt-comment-pip-stage .yt-comment-pip-player .html5-main-video {
+  object-fit: contain !important;
+  object-position: center center !important;
+}
+
+.yt-comment-pip-placeholder {
+  display: block;
+  flex: 0 0 auto;
+  pointer-events: none;
+  visibility: hidden;
+}
