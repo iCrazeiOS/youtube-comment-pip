@@ -2,6 +2,7 @@
   const SHELL_CLASS = "yt-comment-pip-shell";
   const PLAYER_CLASS = "yt-comment-pip-player";
   const HANDLE_CLASS = "yt-comment-pip-handle";
+  const CLOSE_CLASS = "yt-comment-pip-close";
   const RESIZE_CLASS = "yt-comment-pip-resize";
   const STAGE_CLASS = "yt-comment-pip-stage";
   const PLACEHOLDER_CLASS = "yt-comment-pip-placeholder";
@@ -11,9 +12,11 @@
   let shell = null;
   let stage = null;
   let handle = null;
+  let closeButton = null;
   let resizeHandle = null;
   let placeholder = null;
   let active = false;
+  let dismissed = false;
   let checkQueued = false;
   let lastUrl = location.href;
   let settings = loadSettings();
@@ -237,6 +240,13 @@
     handle.setAttribute("aria-label", "Drag mini player");
     handle.addEventListener("pointerdown", startDrag);
 
+    closeButton = document.createElement("button");
+    closeButton.className = CLOSE_CLASS;
+    closeButton.type = "button";
+    closeButton.title = "Dismiss mini player";
+    closeButton.setAttribute("aria-label", "Dismiss mini player");
+    closeButton.addEventListener("click", dismissFloatingPlayer);
+
     resizeHandle = document.createElement("button");
     resizeHandle.className = RESIZE_CLASS;
     resizeHandle.type = "button";
@@ -247,20 +257,29 @@
     stage = document.createElement("div");
     stage.className = STAGE_CLASS;
 
-    shell.append(handle, resizeHandle, stage);
+    shell.append(handle, closeButton, resizeHandle, stage);
     document.body.append(shell);
   }
 
   function removeShell() {
     handle?.removeEventListener("pointerdown", startDrag);
+    closeButton?.removeEventListener("click", dismissFloatingPlayer);
     resizeHandle?.removeEventListener("pointerdown", startResize);
     shell?.remove();
     shell = null;
     stage = null;
     handle = null;
+    closeButton = null;
     resizeHandle = null;
     dragState = null;
     resizeState = null;
+  }
+
+  function dismissFloatingPlayer(event) {
+    event?.preventDefault();
+    event?.stopPropagation();
+    dismissed = true;
+    deactivate();
   }
 
   function startDrag(event) {
@@ -379,6 +398,7 @@
   function reset() {
     deactivate();
     player = null;
+    dismissed = false;
     aspectRatio = 16 / 9;
     removePlaceholder();
   }
@@ -413,9 +433,15 @@
       return;
     }
 
+    const shouldBeFloating = shouldFloat();
+
+    if (!shouldBeFloating) {
+      dismissed = false;
+    }
+
     if (active) applyFloatingGeometry();
 
-    if (shouldFloat()) {
+    if (shouldBeFloating && !dismissed) {
       activate();
     } else {
       deactivate();
