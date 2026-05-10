@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "YouTube Comments Auto PIP",
   "description": "Keeps the YouTube player visible in a compact floating view while you read comments.",
-  "version": "1.0",
+  "version": "1.0.1",
   "content_scripts": [
     {
       "matches": [
