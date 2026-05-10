@@ -3,6 +3,7 @@
   "name": "YouTube Comments Auto PIP",
   "description": "Keeps the YouTube player visible in a compact floating view while you read comments.",
   "version": "1.0.1",
+  "homepage_url": "https://github.com/iCrazeiOS/youtube-comment-pip",
   "content_scripts": [
     {
       "matches": [
